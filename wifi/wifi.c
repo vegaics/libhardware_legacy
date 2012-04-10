@@ -75,7 +75,9 @@ static char iface[PROPERTY_VALUE_MAX];
 #define WIFI_DRIVER_FW_PATH_PARAM	"/sys/module/wlan/parameters/fwpath"
 #endif
 
+#ifndef WIFI_DRIVER_LOADER_DELAY
 #define WIFI_DRIVER_LOADER_DELAY	1000000
+#endif
 
 static const char IFACE_DIR[]           = "/data/system/wpa_supplicant";
 #ifdef WIFI_DRIVER_MODULE_PATH
@@ -209,7 +211,7 @@ int wifi_load_driver()
         return -1;
 
     if (strcmp(FIRMWARE_LOADER,"") == 0) {
-        /* usleep(WIFI_DRIVER_LOADER_DELAY); */
+        usleep(WIFI_DRIVER_LOADER_DELAY);
         property_set(DRIVER_PROP_NAME, "ok");
     }
     else {
